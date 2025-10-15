@@ -1,0 +1,4 @@
+# Dados brutos grandes
+data/*.csv
+data/*.shp
+data/*.dbf
