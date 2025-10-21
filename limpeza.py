@@ -1,32 +1,49 @@
 import pandas as pd
 import re
+import os
 
-# caminho do arquivo original
+# Caminho do arquivo original
 caminho = "data/pib_municipal_2021.csv"
 
-# ler a base
-df = pd.read_csv(caminho)
+# Criar pasta de saída
+os.makedirs("data/limpos", exist_ok=True)
 
-# renomear colunas para facilitar
+# 1️⃣ Ler a base de PIB municipal
+df = pd.read_csv(caminho, encoding="utf-8")
+print("✅ Base carregada com sucesso!")
+print("📊 Linhas:", len(df))
+
+# 2️⃣ Renomear colunas relevantes
 df = df.rename(columns={
     "V": "pib_mil_reais",
-    "D1N": "municipio_nome"
+    "D1N": "municipio"
 })
 
-# extrair a sigla do estado do nome do município (depois do " - ")
-df["UF"] = df["municipio_nome"].apply(lambda x: re.search(r"-\s*([A-Z]{2})$", x).group(1) if re.search(r"-\s*([A-Z]{2})$", x) else None)
+# 3️⃣ Extrair a sigla do estado a partir do nome do município
+df["UF"] = df["municipio"].apply(
+    lambda x: re.search(r"-\s*([A-Z]{2})$", x).group(1)
+    if isinstance(x, str) and re.search(r"-\s*([A-Z]{2})$", x)
+    else None
+)
 
-# converter PIB para número
+# 4️⃣ Converter valores para numérico
 df["pib_mil_reais"] = pd.to_numeric(df["pib_mil_reais"], errors="coerce")
 
-# agrupar por UF e somar
+# 5️⃣ Filtrar apenas estados da Amazônia Legal
+amazonia_legal = ["AC", "AM", "AP", "MA", "MT", "PA", "RO", "RR", "TO"]
+df = df[df["UF"].isin(amazonia_legal)]
+
+print("🌳 Estados filtrados (Amazônia Legal):", sorted(df["UF"].unique()))
+
+# 6️⃣ Agrupar por estado e somar PIB
 pib_estadual = df.groupby("UF", as_index=False)["pib_mil_reais"].sum()
 
-# criar coluna em bilhões para facilitar a leitura
+# 7️⃣ Adicionar PIB em bilhões para facilitar leitura
 pib_estadual["pib_bilhoes"] = (pib_estadual["pib_mil_reais"] / 1_000_000).round(2)
 
-# salvar resultado
-pib_estadual.to_csv("data/pib_estadual_2021.csv", index=False, encoding="utf-8-sig")
+# 8️⃣ Salvar resultado
+output = "data/limpos/pib_estadual_amazonia_2021.csv"
+pib_estadual.to_csv(output, index=False, encoding="utf-8-sig")
 
-print("✅ PIB estadual 2021 calculado com sucesso!")
+print("✅ PIB estadual da Amazônia Legal salvo com sucesso!")
 print(pib_estadual)
