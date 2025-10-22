@@ -1,49 +1,46 @@
 import pandas as pd
-import re
 import os
 
-# Caminho do arquivo original
-caminho = "data/pib_municipal_2021.csv"
+# Caminho da pasta
+base_path = "data/limpos/"
 
-# Criar pasta de saída
-os.makedirs("data/limpos", exist_ok=True)
+# Nomes dos arquivos
+arquivos = {
+    "populacao": "br_ibge_populacao_estados_limpo.csv",
+    "desmatamento": "desmatamento_2021_por_estado.csv",
+    "ipeadata": "ipeadata_limpo.csv",
+    "pib": "pib_estadual_amazonia_2021.csv"
+}
 
-# 1️⃣ Ler a base de PIB municipal
-df = pd.read_csv(caminho, encoding="utf-8")
-print("✅ Base carregada com sucesso!")
-print("📊 Linhas:", len(df))
+# Função auxiliar pra exibir infos resumidas
+def mostrar_info(nome, df):
+    print(f"\n=== 📄 {nome.upper()} ===")
+    print("Colunas:", list(df.columns))
+    print("Tipos:\n", df.dtypes)
+    print("Amostra:")
+    print(df.head(), "\n")
 
-# 2️⃣ Renomear colunas relevantes
-df = df.rename(columns={
-    "V": "pib_mil_reais",
-    "D1N": "municipio"
-})
+# Ler e exibir informações de cada base
+bases = {}
+for nome, arquivo in arquivos.items():
+    caminho = os.path.join(base_path, arquivo)
+    df = pd.read_csv(caminho)
+    bases[nome] = df
+    mostrar_info(nome, df)
 
-# 3️⃣ Extrair a sigla do estado a partir do nome do município
-df["UF"] = df["municipio"].apply(
-    lambda x: re.search(r"-\s*([A-Z]{2})$", x).group(1)
-    if isinstance(x, str) and re.search(r"-\s*([A-Z]{2})$", x)
-    else None
-)
+# 🔎 Verificar colunas de identificação do estado
+print("\n=== 🧭 Colunas de identificação (UF / Estado) ===")
+for nome, df in bases.items():
+    for col in df.columns:
+        if "uf" in col.lower() or "estado" in col.lower():
+            print(f"{nome}: '{col}'")
 
-# 4️⃣ Converter valores para numérico
-df["pib_mil_reais"] = pd.to_numeric(df["pib_mil_reais"], errors="coerce")
+# 🔎 Verificar se todas as UFs estão na Amazônia Legal
+amazonia_legal = {"AC","AM","AP","MA","MT","PA","RO","RR","TO"}
+print("\n=== 🗺️ Estados presentes em cada base ===")
+for nome, df in bases.items():
+    uf_cols = [c for c in df.columns if "uf" in c.lower()]
+    if uf_cols:
+        print(f"{nome}: {sorted(set(df[uf_cols[0]].unique()) & amazonia_legal)}")
 
-# 5️⃣ Filtrar apenas estados da Amazônia Legal
-amazonia_legal = ["AC", "AM", "AP", "MA", "MT", "PA", "RO", "RR", "TO"]
-df = df[df["UF"].isin(amazonia_legal)]
-
-print("🌳 Estados filtrados (Amazônia Legal):", sorted(df["UF"].unique()))
-
-# 6️⃣ Agrupar por estado e somar PIB
-pib_estadual = df.groupby("UF", as_index=False)["pib_mil_reais"].sum()
-
-# 7️⃣ Adicionar PIB em bilhões para facilitar leitura
-pib_estadual["pib_bilhoes"] = (pib_estadual["pib_mil_reais"] / 1_000_000).round(2)
-
-# 8️⃣ Salvar resultado
-output = "data/limpos/pib_estadual_amazonia_2021.csv"
-pib_estadual.to_csv(output, index=False, encoding="utf-8-sig")
-
-print("✅ PIB estadual da Amazônia Legal salvo com sucesso!")
-print(pib_estadual)
+print("\n✅ Análise concluída!")
