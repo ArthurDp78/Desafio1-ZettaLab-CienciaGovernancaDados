@@ -123,7 +123,7 @@ Os resultados mostram que o desmatamento é um **agente central de impacto socio
 
 ## 👩‍💻 Autoria
 
-**Arthur Soares Marques**
+**Desenvolvido por Arthur Soares Marques**
 Este trabalho foi desenvolvido no contexto do Desafio I da 2° Edição do ZettaLab — 2025.
 
 📂 Repositório: `https://github.com/ArthurDp78/Desafio1-ZettaLab-CienciaGovernancaDados`
