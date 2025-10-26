@@ -70,7 +70,7 @@ A seguir, os principais gráficos gerados e suas interpretações:
 
 ### 👥 Desmatamento × População
 
-![População](img/desmatamento_populacao.png)
+![População](img/desmatamento_populaçao.png)
 
 > Relação **positiva**: estados mais populosos apresentam maior área desmatada, o que pode refletir expansão urbana e agrícola.
 
