@@ -29,8 +29,8 @@ O projeto foi dividido em quatro grandes etapas:
 
 ### 3. Modelagem estatística e preditiva
 
-* Aplicação de **regressão linear multivariada** (PIB ~ população + IDH + área desmatada).
-* Geração de previsões de PIB até 2025 com base nas tendências observadas.
+* Aplicação de **regressão linear multivariada** .
+* Geração de previsões de PIB e IDH até 2024 com base nas tendências observadas e no desmatamento dos anos posteriores.
 * Interpretação dos coeficientes e validação visual dos resultados.
 
 ### 4. Visualização e comunicação dos resultados
@@ -41,6 +41,46 @@ O projeto foi dividido em quatro grandes etapas:
 ---
 
 ## 📚 Bases de Dados
+
+Abaixo estão descritas as bases de dados utilizadas e o significado de suas principais colunas para facilitar a compreensão e reprodutibilidade da análise.
+
+### 🏞️ Desmatamento — `desmatamento_2017-2021.csv`
+
+* **fid**: identificador único da feição no shapefile original do PRODES.
+* **state**: sigla do estado (UF) pertencente à Amazônia Legal.
+* **image_date**: data da imagem de satélite usada para detecção do desmatamento.
+* **area_km**: área total desmatada em quilômetros quadrados.
+
+### 👥 População — `br_ibge_populacao_municipio.csv`
+
+* **UF**: sigla do estado.
+* **municipio**: nome do município.
+* **populacao**: número total de habitantes estimado pelo IBGE.
+* **ano**: ano de referência da estimativa.
+
+### 💰 PIB — `pib_municipal_2017.csv` a `pib_municipal_2021.csv`
+
+* **UF**: sigla do estado.
+* **municipio**: nome do município.
+* **pib_mil_reais**: valor do PIB municipal em milhares de reais.
+* **pib_bilhoes**: valor do PIB convertido para bilhões de reais.
+* **ano**: ano de referência dos dados.
+
+### 📈 IDH — `ipeadata_idh_2017-2021.csv`
+
+* **UF**: sigla do estado.
+* **ano**: ano de referência.
+* **IDH**: Índice de Desenvolvimento Humano — indicador que varia de 0 a 1, medindo o desenvolvimento em renda, longevidade e educação.
+
+### 🧩 Base Final — `base_final_analise.csv`
+
+* **UF**: sigla do estado da Amazônia Legal.
+* **ano**: ano de referência (2017–2021).
+* **populacao**: número total de habitantes.
+* **area_km**: área desmatada no respectivo ano (km²).
+* **IDH**: índice de desenvolvimento humano do estado.
+* **pib_mil_reais**: PIB estadual em milhares de reais.
+* **pib_bilhoes**: PIB estadual em bilhões de reais.
 
 | Fonte         | Descrição                                         | Período   | Caminho                                           |
 | ------------- | ------------------------------------------------- | --------- | ------------------------------------------------- |
@@ -98,7 +138,22 @@ A seguir, os principais gráficos gerados e suas interpretações:
 
 ---
 
-## 📈 Conclusão 
+### 🔮 Insights das Previsões (2022–2024)
+
+Com base nos dados reais e projetados de desmatamento, foram estimados os valores de **PIB** e **IDH** para o período de 2022 a 2024.
+
+Os resultados do arquivo `previsoes_desmatamento_base.csv` indicam que:
+
+- **O PIB tende a continuar crescendo**, acompanhando o aumento do desmatamento, o que reforça o padrão de dependência econômica de atividades extrativistas e agropecuárias.
+- **O IDH apresenta tendência de estagnação ou leve queda** em estados com maior avanço do desmatamento, sinalizando que o crescimento econômico **não está sendo acompanhado por melhorias sociais e educacionais**.
+- Em estados com **menor desmatamento recente**, observa-se **crescimento econômico mais estável** e **IDH mais consistente**, sugerindo um modelo de desenvolvimento menos dependente da expansão territorial.
+- Se as tendências atuais persistirem, a Amazônia Legal pode enfrentar **aumento das desigualdades regionais**, **pressão sobre ecossistemas** e **redução da qualidade de vida** em áreas de intensa exploração ambiental.
+
+Essas previsões reforçam a necessidade de políticas públicas voltadas à **diversificação econômica, monitoramento ambiental e investimento em capital humano** para que o crescimento econômico seja sustentável no longo prazo.
+
+---
+
+## 📈 Conclusão e Próximos Passos
 
 Os resultados mostram que o desmatamento é um **agente central de impacto socioeconômico** na Amazônia Legal. A expansão econômica observada entre 2017 e 2021 vem acompanhada de degradação ambiental e ganhos sociais limitados.
 
@@ -125,7 +180,7 @@ Os resultados mostram que o desmatamento é um **agente central de impacto socio
 
 **Desenvolvido por Arthur Soares Marques**
 
-Este trabalho foi desenvolvido no contexto do Desafio I da 2° Edição do ZettaLab — 2025.
+Este trabalho foi desenvolvido no contexto do Desafio I — 2025.
 
 📂 Repositório: `https://github.com/ArthurDp78/Desafio1-ZettaLab-CienciaGovernancaDados`
 
