@@ -40,39 +40,84 @@ O projeto foi dividido em quatro grandes etapas:
 
 ---
 
-## 📚 Bases de Dados
+## 📚 Bases de Dados Inicial
 
-Abaixo estão descritas as bases de dados utilizadas e o significado de suas principais colunas para facilitar a compreensão e reprodutibilidade da análise.
+Abaixo estão descritas as bases de dados utilizadas incial e o significado de suas principais colunas para facilitar a compreensão e reprodutibilidade da análise.
 
-### 🏞️ Desmatamento — `desmatamento_2017-2021.csv`
+### 🏞️ Desmatamento — `desmatamento_por_estado.csv`
 
-* **fid**: identificador único da feição no shapefile original do PRODES.
-* **state**: sigla do estado (UF) pertencente à Amazônia Legal.
-* **image_date**: data da imagem de satélite usada para detecção do desmatamento.
-* **area_km**: área total desmatada em quilômetros quadrados.
+![DesmatamentoBase](analises/imgs/amostras/base/amostra_desmatamento.png)
+
+* **state**: sigla do estado.
+* **year**: ano de referência dos dados.
+* **area_km**: área desmatada no poligóno.
 
 ### 👥 População — `br_ibge_populacao_municipio.csv`
 
-* **UF**: sigla do estado.
-* **municipio**: nome do município.
+![PopulacaoBase](analises/imgs/amostras/base/amostra_populacao.png)
+
+* **ano**: ano de referência dos dados..
+* **sigla_uf**: sigla do estado.
+* **id_municipio**: identificador do municipio.
 * **populacao**: número total de habitantes estimado pelo IBGE.
-* **ano**: ano de referência da estimativa.
 
-### 💰 PIB — `pib_municipal_2017.csv` a `pib_municipal_2021.csv`
+### 💰 PIB — `pib_municipal_*.csv` 
 
-* **UF**: sigla do estado.
-* **municipio**: nome do município.
-* **pib_mil_reais**: valor do PIB municipal em milhares de reais.
-* **pib_bilhoes**: valor do PIB convertido para bilhões de reais.
-* **ano**: ano de referência dos dados.
+![PibBase](analises/imgs/amostras/base/amostra_pib.png)
+
+* **V**: valor do pib em mil reais.
+* **D1N**: nome do município com o estado.
+* **D3N**: ano de referência dos dados.
+
+### 📈 IDH — `ipeadata[24-10-2025-01-26].csv`
+
+![IdhBase](analises/imgs/amostras/base/amostra_idh.png)
+
+* **Sigla**: sigla do estado.
+* **2017**: IDH de 2017.
+* **2018**: IDH de 2018.
+* **2019**: IDH de 2019.
+* **2020**: IDH de 2020.
+* **2021**: IDH de 2021.
+
+
+| Fonte         | Descrição                                         | Período   | Caminho                                           |
+| ------------- | ------------------------------------------------- | --------- | ------------------------------------------------- |
+| INPE / PRODES | Desmatamento anual por estado (área em km²)       | 2017–2021 | `data/limpos/desmatamento_2017-2021.csv`          |
+| IBGE          | População estimada por estado                     | 2017–2021 | `data/limpos/populacao_estadual_2017-2021.csv`    |
+| IBGE          | PIB estadual (em milhões e bilhões de reais)      | 2017–2021 | `data/limpos/pib_estadual_amazonia_2017_2021.csv` |
+| IPEA          | Índice de Desenvolvimento Humano (IDH)            | 2017–2021 | `data/limpos/ipeadata_idh_2017-2021.csv`          |
+
+---
+
+## 📚 Bases de Dados Após Limpezas
+Abaixo estão descritas as bases de dados após devidas limpezas.
+
+### 🏞️ Desmatamento — `desmatamento_2017-2021.csv`
+
+![DesmatamentoLimpo](analises/imgs/amostras/limpos/amostra_desmatamento_limpo.png)
+
+### 👥 População — `populacao_estadual_2017-2021.csv`
+
+![PopulacaoLimpo](analises/imgs/amostras/limpos/amostra_populacao_limpo.png)
+
+### 💰 PIB — `pib_estadual_amazonia_2017_2021.csv` 
+
+![PibLimpo](analises/imgs/amostras/limpos/amostra_pib_limpo.png)
 
 ### 📈 IDH — `ipeadata_idh_2017-2021.csv`
 
-* **UF**: sigla do estado.
-* **ano**: ano de referência.
-* **IDH**: Índice de Desenvolvimento Humano — indicador que varia de 0 a 1, medindo o desenvolvimento em renda, longevidade e educação.
+![IdhLimpo](analises/imgs/amostras/limpos/amostra_idh_limpo.png)
+
+---
+
+## 📊 Resultados e Visualizações
+
+A seguir, os principais gráficos gerados e suas interpretações:
 
 ### 🧩 Base Final — `base_final_analise.csv`
+
+![BaseFinal](analises/imgs/amostras/limpos/amostra_final.png)
 
 * **UF**: sigla do estado da Amazônia Legal.
 * **ano**: ano de referência (2017–2021).
@@ -82,41 +127,27 @@ Abaixo estão descritas as bases de dados utilizadas e o significado de suas pri
 * **pib_mil_reais**: PIB estadual em milhares de reais.
 * **pib_bilhoes**: PIB estadual em bilhões de reais.
 
-| Fonte         | Descrição                                         | Período   | Caminho                                           |
-| ------------- | ------------------------------------------------- | --------- | ------------------------------------------------- |
-| INPE / PRODES | Desmatamento anual por estado (área em km²)       | 2017–2021 | `data/limpos/desmatamento_2017-2021.csv`          |
-| IBGE          | População estimada por estado                     | 2017–2021 | `data/limpos/populacao_estadual_2017-2021.csv`    |
-| IBGE          | PIB estadual (em milhões e bilhões de reais)      | 2017–2021 | `data/limpos/pib_estadual_amazonia_2017_2021.csv` |
-| IPEA          | Índice de Desenvolvimento Humano (IDH)            | 2017–2021 | `data/limpos/ipeadata_idh_2017-2021.csv`          |
-| ZettaLab      | Base final unificada (9 UFs × 5 anos = 45 linhas) | 2017–2021 | `data/limpos/base_final.csv`                      |
-
----
-
-## 📊 Resultados e Visualizações
-
-A seguir, os principais gráficos gerados e suas interpretações:
-
 ### 🔥 Heatmap de Correlação
 
-![Heatmap](analises/img/heatmap.png)
+![Heatmap](analises/imgs/resultados/heatmap.png)
 
 > Mostra correlação **forte e positiva** entre **PIB**, **população** e **desmatamento**, enquanto o **IDH** apresenta correlação **fraca e levemente negativa** com o desmatamento.
 
 ### 💰 Desmatamento × PIB
 
-![PIB](analises/img/desmatamento_pib.png)
+![PIB](analises/imgs/resultados/desmatamento_pib.png)
 
 > Relação **positiva**: quanto maior a área desmatada, maior tende a ser o PIB. Indica possível dependência econômica de atividades que exploram o território.
 
 ### 👥 Desmatamento × População
 
-![População](analises/img/desmatamento_populacao.png)
+![População](analises/imgs/resultados/desmatamento_populacao.png)
 
 > Relação **positiva**: estados mais populosos apresentam maior área desmatada, o que pode refletir expansão urbana e agrícola.
 
 ### 🌱 Desmatamento × IDH
 
-![IDH](analises/img/desmatamento_idh.png)
+![IDH](analises/imgs/resultados/desmatamento_idh.png)
 
 > Relação **negativa**: maiores níveis de desmatamento estão associados a **menor IDH**, indicando que o crescimento econômico e populacional **não tem se traduzido em desenvolvimento humano proporcional**.
 
