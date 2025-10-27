@@ -153,9 +153,15 @@ Essas previsões reforçam a necessidade de políticas públicas voltadas à **d
 
 ---
 
-## 📈 Conclusão e Próximos Passos
+## 📈 Conclusão  
 
-Os resultados mostram que o desmatamento é um **agente central de impacto socioeconômico** na Amazônia Legal. A expansão econômica observada entre 2017 e 2021 vem acompanhada de degradação ambiental e ganhos sociais limitados.
+Os resultados evidenciam que o **desmatamento é um dos principais vetores de impacto socioeconômico na Amazônia Legal**, influenciando diretamente o crescimento do PIB e a dinâmica populacional. Contudo, esse avanço econômico tem ocorrido à custa de **desequilíbrios ambientais e sociais significativos**.  
+
+Entre 2017 e 2021, observou-se que o aumento do PIB acompanhou o avanço do desmatamento, enquanto o **IDH apresentou sinais de estagnação**, revelando um **modelo de crescimento dependente da exploração intensiva dos recursos naturais** e pouco orientado à sustentabilidade.  
+
+As análises e previsões sugerem que, se essa tendência persistir, a região poderá enfrentar **agravamento das desigualdades sociais**, **perda irreversível de biodiversidade** e **comprometimento das metas climáticas e ambientais** assumidas pelo país.  
+
+Portanto, torna-se urgente a implementação de **políticas públicas integradas** que conciliem **crescimento econômico, preservação ambiental e inclusão social**, de modo a promover um **desenvolvimento sustentável, equitativo e de longo prazo** para toda a Amazônia Legal.  
 
 ---
 
