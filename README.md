@@ -98,25 +98,25 @@ A seguir, os principais gráficos gerados e suas interpretações:
 
 ### 🔥 Heatmap de Correlação
 
-![Heatmap](img/heatmap.png)
+![Heatmap](analises/img/heatmap.png)
 
 > Mostra correlação **forte e positiva** entre **PIB**, **população** e **desmatamento**, enquanto o **IDH** apresenta correlação **fraca e levemente negativa** com o desmatamento.
 
 ### 💰 Desmatamento × PIB
 
-![PIB](img/desmatamento_pib.png)
+![PIB](analises/img/desmatamento_pib.png)
 
 > Relação **positiva**: quanto maior a área desmatada, maior tende a ser o PIB. Indica possível dependência econômica de atividades que exploram o território.
 
 ### 👥 Desmatamento × População
 
-![População](img/desmatamento_populacao.png)
+![População](analises/img/desmatamento_populacao.png)
 
 > Relação **positiva**: estados mais populosos apresentam maior área desmatada, o que pode refletir expansão urbana e agrícola.
 
 ### 🌱 Desmatamento × IDH
 
-![IDH](img/desmatamento_idh.png)
+![IDH](analises/img/desmatamento_idh.png)
 
 > Relação **negativa**: maiores níveis de desmatamento estão associados a **menor IDH**, indicando que o crescimento econômico e populacional **não tem se traduzido em desenvolvimento humano proporcional**.
 
